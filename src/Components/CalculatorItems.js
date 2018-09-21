@@ -17,9 +17,10 @@ class Atk extends Component {
                         onChange={event =>  { 
                                     const stats = event.target.value;
                                     this.setState({ stats });
-                                    this.props.onValueChange(parseInt(stats, 10));
+                                    this.props.onValueChange(parseInt(stats, 10)); 
                                 }
                         }
+                        
                         type="number"
                 />
                 <br/><br/>
