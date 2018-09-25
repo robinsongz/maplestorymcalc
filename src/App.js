@@ -29,9 +29,9 @@ class App extends Component {
                         critRate: null,
                         critAtk: null,
                         critDmg: null,
-                        totalDmg: null,
-                        totalBossDmg: null,
-                        totalPlayerDmg: null,
+                        totalDmg: 0,
+                        totalBossDmg: 0,
+                        totalPlayerDmg: 0,
                         damageFormula: false
                       }
     }
@@ -59,9 +59,9 @@ class App extends Component {
         let critAtkCalc = (critRate/100) * critAtk;
         let critDmgCalc = (critRate/100) * critDmg;
 
-        let totalDamage = ((atk + critAtkCalc) * (1+atkIncrease/100) * (1+(dmgIncrease+critDmgCalc)/100) * (skillDmg/100) * skillHit);
-        let totalBossDamage = ((atk + critAtkCalc) * (1+atkIncrease/100) * (1+bossAtk/100) * (1+(dmgIncrease+critDmgCalc)/100) * (skillDmg/100) * skillHit);
-        let totalPlayerDamage = ((atk + critAtkCalc) * (1+atkIncrease/100) * (1+playerAtk/100) * (1+(dmgIncrease+critDmgCalc)/100) * (skillDmg/100) * skillHit);
+        let totalDamage = ((atk + critAtkCalc) * (1+atkIncrease/100) * (1+(dmgIncrease+critDmgCalc)/100) * (skillDmg/100) * (skillHit));
+        let totalBossDamage = ((atk + critAtkCalc) * (1+atkIncrease/100) * (1+bossAtk/100) * (1+(dmgIncrease+critDmgCalc)/100) * (skillDmg/100) * (skillHit));
+        let totalPlayerDamage = ((atk + critAtkCalc) * (1+atkIncrease/100) * (1+playerAtk/100) * (1+(dmgIncrease+critDmgCalc)/100) * (skillDmg/100) * (skillHit));
         
 
         let totalDamageRound = round(totalDamage,0);
