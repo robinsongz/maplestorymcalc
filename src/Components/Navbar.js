@@ -4,10 +4,10 @@ const Navbar = () => {
     return (
         <div className="fw7">
         <nav className="navbar bg-warning justify-content-center navbar-light">
-		    <div className="f3 flex items-center">
+		    <div className="f4 flex items-center">
                 <img    
                     alt="maplelogo" 
-                    className="" 
+                    className="navbar-brand" 
                     height="30" 
                     src="https://orangemushroom.files.wordpress.com/2017/09/maplestory-256x256.png?w=600" 
                     width="30"

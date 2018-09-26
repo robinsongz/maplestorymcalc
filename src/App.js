@@ -109,10 +109,15 @@ class App extends Component {
 
         return (
             <div onKeyPress={this._handleKeyPress}>
-            <Navbar />
+                <div className="nowrap">
+                <Navbar />
+                </div>
+            <div class="row">
+            <div class="col-md-12">
+
                 <div className="card card-image bg-light-yellow">
                     <br />
-                    <div>
+                    <div className="tc p-2">
                         <DamageChart 
                             totalDmg={this.state.totalDmg} 
                             totalBossDmg={this.state.totalBossDmg}
@@ -177,7 +182,9 @@ class App extends Component {
                     
                 </form>
             </div>   
-        </div>                    
+        </div>  
+        </div>
+        </div>                  
         )    
     }
 }
