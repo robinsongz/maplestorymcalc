@@ -115,20 +115,12 @@ class App extends Component {
             <div class="row">
             <div class="col-md-12">
 
-                <div className="card card-image bg-light-yellow">
-                    <br />
-                    <div className="tc p-2">
-                        <DamageChart 
-                            totalDmg={this.state.totalDmg} 
-                            totalBossDmg={this.state.totalBossDmg}
-                            totalPlayerDmg={this.state.totalPlayerDmg}
-                        />
-
-                    </div>
-                    <br />
-                    <div className="tc w-100 h-100 p-2">
+                <div className="bg-washed-yellow mt2">
+                    
+                <div className="bg-light-yellow w-90 tc center rounded">
+                <div className="tc w-100 h-100 p-2">
                         <button 
-                            className="btn btn-warning ba bw-3 b--black rounded" 
+                            className="btn btn-warning ba bw-3 b--black rounded ma1" 
                             type="button" 
                             onClick={this.toggleDamageFormula}
                         >
@@ -136,7 +128,6 @@ class App extends Component {
                         Damage Formula
                         </button>
                         <div className={"collapse navbar-collapse " + show}>
-                        <br />
                             <DamageFormula 
                                 atk={this.state.atk} 
                                 critRate={this.state.critRate} 
@@ -151,6 +142,13 @@ class App extends Component {
                             />
                         </div>
                      </div>
+                    <div className="tc">
+                        <DamageChart 
+                            totalDmg={this.state.totalDmg} 
+                            totalBossDmg={this.state.totalBossDmg}
+                            totalPlayerDmg={this.state.totalPlayerDmg}
+                        />
+                    </div>
                     <hr />
                 <form className="form-group m-2 p-2">
                     <div className="row justify-content-center">
@@ -177,11 +175,11 @@ class App extends Component {
                     {" "}
                     <div className="tc">
                         <ResetButton refreshPage={this.refreshPage}/>
-                        <br/>
                     </div>
                     
                 </form>
-            </div>   
+            </div>  
+            </div> 
         </div>  
         </div>
         </div>                  

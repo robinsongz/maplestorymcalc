@@ -10,7 +10,6 @@ class DamageChart extends Component {
                 Boss Damage: {this.props.totalBossDmg}
                         <br />
                 Player Damage: {this.props.totalPlayerDmg}
-            
             </div>
         )
     }
