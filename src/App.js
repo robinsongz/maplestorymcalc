@@ -19,19 +19,19 @@ class App extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {  atk: null,
-                        atkIncrease: null,
-                        dmgIncrease: null,
-                        bossAtk: null,
-                        playerAtk: null,
-                        skillDmg: null,
-                        skillHit: null,
-                        critRate: null,
-                        critAtk: null,
-                        critDmg: null,
-                        totalDmg: null,
-                        totalBossDmg: null,
-                        totalPlayerDmg: null,
+        this.state = {  atk: '',
+                        atkIncrease: '',
+                        dmgIncrease: '',
+                        bossAtk: '',
+                        playerAtk: '',
+                        skillDmg: '',
+                        skillHit: '',
+                        critRate: '',
+                        critAtk: '',
+                        critDmg: '',
+                        totalDmg: '',
+                        totalBossDmg: '',
+                        totalPlayerDmg: '',
                         damageFormula: false
                         
                       }
@@ -60,9 +60,9 @@ class App extends Component {
         let critAtkCalc = (critRate/100) * critAtk;
         let critDmgCalc = (critRate/100) * critDmg;
 
-        let totalDamage = ((atk + critAtkCalc) * (1+atkIncrease/100) * (1+(dmgIncrease+critDmgCalc)/100) * (skillDmg/100) * (skillHit));
-        let totalBossDamage = ((atk + critAtkCalc) * (1+atkIncrease/100) * (1+bossAtk/100) * (1+(dmgIncrease+critDmgCalc)/100) * (skillDmg/100) * (skillHit));
-        let totalPlayerDamage = ((atk + critAtkCalc) * (1+atkIncrease/100) * (1+playerAtk/100) * (1+(dmgIncrease+critDmgCalc)/100) * (skillDmg/100) * (skillHit));
+        let totalDamage = ((Number(atk) + Number(critAtkCalc)) * (1+atkIncrease/100) * (1+(Number(dmgIncrease)+Number(critDmgCalc))/100) * (skillDmg/100) * (skillHit));
+        let totalBossDamage = ((Number(atk) + Number(critAtkCalc)) * (1+atkIncrease/100) * (1+bossAtk/100) * (1+(Number(dmgIncrease)+ Number(critDmgCalc))/100) * (skillDmg/100) * (skillHit));
+        let totalPlayerDamage = ((Number(atk) + Number(critAtkCalc)) * (1+atkIncrease/100) * (1+playerAtk/100) * (1+(Number(dmgIncrease)+ Number(critDmgCalc))/100) * (skillDmg/100) * (skillHit));
         
 
         let totalDamageRound = round(totalDamage,0);
@@ -70,7 +70,7 @@ class App extends Component {
         let totalPlayerDamageRound = round(totalPlayerDamage,0);
 
 
-        if (atk === null || atkIncrease === null || dmgIncrease === null || bossAtk === null || playerAtk === null || bossAtk === null || dmgIncrease === null || skillDmg === null || skillHit === null || critRate === null || critAtk === null || critDmg === null) {
+        if (atk === "" || atkIncrease === "" || dmgIncrease ===  "" || bossAtk === '' || playerAtk === '' || bossAtk === '' || dmgIncrease === '' || skillDmg === '' || skillHit === '' || critRate === '' || critAtk === '' || critDmg === '') {
             return Swal("Please input all stats", "", "warning");
         }
 
@@ -150,7 +150,7 @@ class App extends Component {
                 <form className="form-group m-2 p-2">
                     <div className="row justify-content-center">
                         <div className="col col-lg-3 text-center">
-                            <Atk onValueChange={atk => this.setState({ atk })} onType={this.damageCalc}/>
+                            <Atk onValueChange={atk => this.setState({ atk })}/>
                             <AtkIncrease onValueChange={atkIncrease => this.setState({ atkIncrease })}/>
                             <DmgIncrease onValueChange={dmgIncrease => this.setState({ dmgIncrease })}/>
                             <BossAtk onValueChange={bossAtk => this.setState({ bossAtk })}/>
