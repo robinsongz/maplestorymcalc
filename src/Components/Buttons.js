@@ -5,7 +5,6 @@ class CalculateButton extends Component {
         return (
             <div>
                 <button className="btn btn-primary m-1 w-40" 
-                
                         type="button"
                         onClick={this.props.damageCalc}
                 >

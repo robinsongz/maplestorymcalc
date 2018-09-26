@@ -2,9 +2,9 @@ import React from 'react';
 
 const Navbar = () => {
     return (
-        <div>
+        <div className="fw7">
         <nav className="navbar bg-warning justify-content-center navbar-light">
-		    <div className="sans-serif f3 flex items-center">
+		    <div className="f3 flex items-center">
                 <img    
                     alt="maplelogo" 
                     className="" 

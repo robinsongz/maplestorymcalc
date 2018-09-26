@@ -8,9 +8,9 @@ import Navbar from './Components/Navbar';
 import './App.css';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCalculator, faTimes, faPowerOff } from '@fortawesome/free-solid-svg-icons'
+import { faCalculator, faTimes, faArrowRight, faArrowDown } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faCalculator, faTimes, faPowerOff)
+library.add(faCalculator, faTimes, faArrowRight, faArrowDown)
 
 
 
@@ -19,20 +19,21 @@ class App extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {  atk: 0,
-                        atkIncrease: 0,
-                        dmgIncrease: 0,
-                        bossAtk: 0,
-                        playerAtk: 0,
-                        skillDmg: 100,
-                        skillHit: 1,
-                        critRate: 0,
-                        critAtk: 0,
-                        critDmg: 0,
-                        totalDmg: 0,
-                        totalBossDmg: 0,
-                        totalPlayerDmg: 0,
+        this.state = {  atk: null,
+                        atkIncrease: null,
+                        dmgIncrease: null,
+                        bossAtk: null,
+                        playerAtk: null,
+                        skillDmg: null,
+                        skillHit: null,
+                        critRate: null,
+                        critAtk: null,
+                        critDmg: null,
+                        totalDmg: null,
+                        totalBossDmg: null,
+                        totalPlayerDmg: null,
                         damageFormula: false
+                        
                       }
     }
 
@@ -68,8 +69,9 @@ class App extends Component {
         let totalBossDamageRound = round(totalBossDamage,0);
         let totalPlayerDamageRound = round(totalPlayerDamage,0);
 
-        if (atk === null ) {
-            return Swal("Please input ATK", "", "warning");
+
+        if (atk === null || atkIncrease === null || dmgIncrease === null || bossAtk === null || playerAtk === null || bossAtk === null || dmgIncrease === null || skillDmg === null || skillHit === null || critRate === null || critAtk === null || critDmg === null) {
+            return Swal("Please input all stats", "", "warning");
         }
 
         if (critRate > 100) {
@@ -78,12 +80,11 @@ class App extends Component {
 
         this.setState({ totalDmg: totalDamageRound, 
                         totalBossDmg: totalBossDamageRound,
-                        totalPlayerDmg: totalPlayerDamageRound})
+                        totalPlayerDmg: totalPlayerDamageRound,
         
-
-        //Swal(damageStatement(totalDamageRound), damageStatement(totalBossDamageRound) + " against bosses", "success")
-        
-    }
+        })
+    
+}
 
     refreshPage = () => {
         window.location.reload();
@@ -116,7 +117,7 @@ class App extends Component {
                             totalDmg={this.state.totalDmg} 
                             totalBossDmg={this.state.totalBossDmg}
                             totalPlayerDmg={this.state.totalPlayerDmg}
-                            />
+                        />
 
                     </div>
                     <br />
@@ -169,9 +170,6 @@ class App extends Component {
                         <CalculateButton damageCalc={this.damageCalc}/>
                     </div>
                     {" "}
-                    {/* <div className="tc">
-                        <RecordButton recordDamage={this.recordDamage} />
-                    </div> */}
                     <div className="tc">
                         <ResetButton refreshPage={this.refreshPage}/>
                         <br/>

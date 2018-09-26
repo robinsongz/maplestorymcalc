@@ -17,7 +17,7 @@ class Atk extends Component {
                         onChange={event =>  { 
                                     const stats = event.target.value;
                                     this.setState({ stats });
-                                    this.props.onValueChange(parseFloat(stats)); 
+                                    this.props.onValueChange(parseFloat(stats) || null); 
                                 }
                         }
                         
@@ -45,7 +45,7 @@ class AtkIncrease extends Component {
                         onChange={event => {
                                     const stats = event.target.value;
                                     this.setState({ stats });
-                                    this.props.onValueChange(parseFloat(stats));
+                                    this.props.onValueChange(parseFloat(stats) || null);
                                 } 
                             }
                         type="number"
@@ -71,7 +71,7 @@ class DmgIncrease extends Component {
                         onChange={event => {
                             const stats = event.target.value;
                             this.setState({ stats });
-                            this.props.onValueChange(parseFloat(stats));
+                            this.props.onValueChange(parseFloat(stats) || null);
                             } 
                         }
                         type ="number"
@@ -97,7 +97,7 @@ class BossAtk extends Component {
                         onChange={event => {
                             const stats = event.target.value
                             this.setState({ stats });
-                            this.props.onValueChange(parseFloat(stats));
+                            this.props.onValueChange(parseFloat(stats) || null);
                         } 
                         }/>
                 <br/><br/>
@@ -121,7 +121,7 @@ class PlayerAtk extends Component {
                         onChange={event => {
                             const stats = event.target.value;
                             this.setState({ stats });
-                            this.props.onValueChange(parseFloat(stats));
+                            this.props.onValueChange(parseFloat(stats) || null);
                             } 
                         }
                         type="number"
@@ -147,7 +147,7 @@ class SkillDmg extends Component {
                         onChange={event => {
                             const stats = event.target.value;
                             this.setState({ stats });
-                            this.props.onValueChange(parseFloat(stats));
+                            this.props.onValueChange(parseFloat(stats) || null );
                             } 
                         } 
                         type="number"
@@ -173,7 +173,7 @@ class SkillHit extends Component {
                         onChange={event => {
                             const stats = event.target.value;
                             this.setState({ stats });
-                            this.props.onValueChange(parseFloat(stats));
+                            this.props.onValueChange(parseFloat(stats) || null);
                             } 
                         }
                         type="number"
@@ -199,7 +199,7 @@ class CritRate extends Component {
                         onChange={event => {
                             const stats = event.target.value;
                             this.setState({ stats });
-                            this.props.onValueChange(parseFloat(stats));
+                            this.props.onValueChange(parseFloat(stats) || null);
                             } 
                         }
                         type="number"
@@ -225,7 +225,7 @@ class CritAtk extends Component {
                         onChange={event => {
                             const stats = event.target.value;
                             this.setState({ stats });
-                            this.props.onValueChange(parseFloat(stats));
+                            this.props.onValueChange(parseFloat(stats) || null);
                             } 
                         }
                         type="number"
@@ -251,7 +251,7 @@ class CritDmg extends Component {
                         onChange={event => {
                             const stats = event.target.value;
                             this.setState({ stats });
-                            this.props.onValueChange(parseFloat(stats));
+                            this.props.onValueChange(parseFloat(stats) || null);
                             } 
                         }
                         type="number"
