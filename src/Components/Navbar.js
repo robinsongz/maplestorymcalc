@@ -8,9 +8,9 @@ const Navbar = () => {
                 <img    
                     alt="maplelogo" 
                     className="navbar-brand" 
-                    height="30" 
+                    height="50" 
                     src="https://orangemushroom.files.wordpress.com/2017/09/maplestory-256x256.png?w=600" 
-                    width="30"
+                    width="50"
                 /> 
                 {'\u00A0'}Maplestory M Damage Calculator
             </div>
