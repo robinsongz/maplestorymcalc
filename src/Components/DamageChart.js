@@ -5,11 +5,12 @@ class DamageChart extends Component {
         return (
             <div className="w-75 bg-warning center ba bw2 b--black pa2 shadow-5 rounded">
             
-                Average Damage: {this.props.totalDmg} 
+                Average Non-Crit Damage Per Line: {this.props.totalNonCritDmg}
                         <br />
-                Average Boss Damage: {this.props.totalBossDmg}
+                Average Crit Damage Per Line: {this.props.totalCritDmg}
                         <br />
-                Average Player Damage: {this.props.totalPlayerDmg}
+                Average Total Damage: {this.props.totalDmg} 
+                        <br />
             </div>
         )
     }

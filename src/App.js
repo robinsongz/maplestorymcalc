@@ -5,6 +5,7 @@ import {CalculateButton, ResetButton } from './Components/Buttons';
 import DamageChart from './Components/DamageChart';
 import DamageFormula from './Components/DamageFormula';
 import Navbar from './Components/Navbar';
+import MoreStats from './Components/MoreStats';
 import './App.css';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -30,9 +31,12 @@ class App extends Component {
                         critAtk: '',
                         critDmg: '',
                         totalDmg: '',
+                        totalCritDmg: '',
+                        totalNonCritDmg: '',
                         totalBossDmg: '',
                         totalPlayerDmg: '',
-                        damageFormula: false
+                        damageFormula: false,
+                        moreStats: false
                         
                       }
     }
@@ -57,8 +61,10 @@ class App extends Component {
         let critAtk = this.state.critAtk;
         let critDmg = this.state.critDmg;
 
-        let totalDamageWithoutCrit = (atk) * (1+atkIncrease/100) * (1+dmgIncrease/100) * (skillDmg/100) * (skillHit));
-        let totalDamageWithCrit = ((Number(atk) + Number(critAtk)) * (1+atkIncrease/100) * (1+(Number(dmgIncrease)+Number(critDmg))/100) * (skillDmg/100) * (skillHit));
+        let totalDamageWithoutCrit = (atk) * (1+atkIncrease/100) * (1+dmgIncrease/100) * (skillDmg/100) * (skillHit);
+        let totalDamageWithCrit = (Number(atk) + Number(critAtk)) * (1+atkIncrease/100) * (1+(Number(dmgIncrease)+Number(critDmg))/100) * (skillDmg/100) * (skillHit);
+        let totalCritDamagePerLine = totalDamageWithCrit / skillHit;
+        let totalNonCritDamagePerLine = totalDamageWithoutCrit / skillHit;
 
         let totalAverageDamage = ((1 - critRate/100) * totalDamageWithoutCrit) + ((critRate/100) * totalDamageWithCrit);
 
@@ -77,6 +83,8 @@ class App extends Component {
         let totalDamageRound = round(totalAverageDamage,0);
         let totalBossDamageRound = round(totalAverageBossDamage,0);
         let totalPlayerDamageRound = round(totalAveragePlayerDamage,0);
+        let totalCritDamageRound = round(totalCritDamagePerLine,0);
+        let totalNonCritDamageRound = round(totalNonCritDamagePerLine,0);
 
 
         if (atk === "" || atkIncrease === "" || dmgIncrease ===  "" || bossAtk === '' || playerAtk === '' || bossAtk === '' || dmgIncrease === '' || skillDmg === '' || skillHit === '' || critRate === '' || critAtk === '' || critDmg === '') {
@@ -90,6 +98,8 @@ class App extends Component {
         this.setState({ totalDmg: totalDamageRound, 
                         totalBossDmg: totalBossDamageRound,
                         totalPlayerDmg: totalPlayerDamageRound,
+                        totalCritDmg: totalCritDamageRound,
+                        totalNonCritDmg: totalNonCritDamageRound,
         
         })
     
@@ -109,12 +119,17 @@ class App extends Component {
         this.setState({damageFormula: !this.state.damageFormula})
     }
 
+    toggleMoreStats = () => {
+        this.setState({moreStats: !this.state.moreStats})
+    }
+
     
 
     
     
     render() {
         const show = (this.state.damageFormula) ? "show" : "" ;
+        const hi = (this.state.moreStats) ? "show" : "" ;
 
         return (
             <div onKeyPress={this._handleKeyPress}>
@@ -136,6 +151,12 @@ class App extends Component {
                         <FontAwesomeIcon icon="calculator" /> {" "}
                         Damage Formula
                         </button>
+                        <button 
+                            className="btn btn-warning ba bw-3 b--black rounded ma1" 
+                            type="button" 
+                            onClick={this.toggleMoreStats}
+                        >More Stats 
+                        </button>
                         <div className={"collapse navbar-collapse " + show}>
                             <DamageFormula 
                                 atk={this.state.atk} 
@@ -154,9 +175,15 @@ class App extends Component {
                     <div className="tc">
                         <DamageChart 
                             totalDmg={this.state.totalDmg} 
-                            totalBossDmg={this.state.totalBossDmg}
-                            totalPlayerDmg={this.state.totalPlayerDmg}
+                            totalNonCritDmg={this.state.totalNonCritDmg}
+                            totalCritDmg={this.state.totalCritDmg}
                         />
+                        <div className={"collapse navbar-collapse " + hi}>
+                            <MoreStats 
+                                totalBossDmg={this.state.totalBossDmg}
+                                totalPlayerDmg={this.state.totalPlayerDmg}
+                            />
+                        </div>
                     </div>
                     <hr />
                 <form className="form-group m-2 p-2">
