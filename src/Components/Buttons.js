@@ -8,7 +8,7 @@ class CalculateButton extends Component {
                         type="button"
                         onClick={this.props.damageCalc}
                 >
-                Calculate Damage
+                Calculate
                 </button>
             </div>
             )
