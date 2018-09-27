@@ -57,17 +57,26 @@ class App extends Component {
         let critAtk = this.state.critAtk;
         let critDmg = this.state.critDmg;
 
-        let critAtkCalc = (critRate/100) * critAtk;
-        let critDmgCalc = (critRate/100) * critDmg;
+        let totalDamageWithoutCrit = (atk) * (1+atkIncrease/100) * (1+dmgIncrease/100) * (skillDmg/100) * (skillHit));
+        let totalDamageWithCrit = ((Number(atk) + Number(critAtk)) * (1+atkIncrease/100) * (1+(Number(dmgIncrease)+Number(critDmg))/100) * (skillDmg/100) * (skillHit));
 
-        let totalDamage = ((Number(atk) + Number(critAtkCalc)) * (1+atkIncrease/100) * (1+(Number(dmgIncrease)+Number(critDmgCalc))/100) * (skillDmg/100) * (skillHit));
-        let totalBossDamage = ((Number(atk) + Number(critAtkCalc)) * (1+atkIncrease/100) * (1+bossAtk/100) * (1+(Number(dmgIncrease)+ Number(critDmgCalc))/100) * (skillDmg/100) * (skillHit));
-        let totalPlayerDamage = ((Number(atk) + Number(critAtkCalc)) * (1+atkIncrease/100) * (1+playerAtk/100) * (1+(Number(dmgIncrease)+ Number(critDmgCalc))/100) * (skillDmg/100) * (skillHit));
+        let totalAverageDamage = ((1 - critRate/100) * totalDamageWithoutCrit) + ((critRate/100) * totalDamageWithCrit);
+
+        let totalBossDamageWithoutCrit = (atk) * (1+atkIncrease/100) * (1+bossAtk/100) * (1+dmgIncrease/100) * (skillDmg/100) * (skillHit);
+        let totalBossDamageWithCrit = ((Number(atk) + Number(critAtk)) * (1+atkIncrease/100) * (1+bossAtk/100) * (1+(Number(dmgIncrease)+Number(critDmg))/100) * (skillDmg/100) * (skillHit));
+
+        let totalAverageBossDamage = ((1 - critRate/100) * totalBossDamageWithoutCrit) + ((critRate/100) * totalBossDamageWithCrit);
+
+        let totalPlayerDamageWithoutCrit = (atk) * (1+atkIncrease/100) * (1+playerAtk/100) * (1+dmgIncrease/100) * (skillDmg/100) * (skillHit);
+        let totalPlayerDamageWithCrit = ((Number(atk) + Number(critAtk)) * (1+atkIncrease/100) * (1+playerAtk/100) * (1+(Number(dmgIncrease)+Number(critDmg))/100) * (skillDmg/100) * (skillHit));
+
+        let totalAveragePlayerDamage = ((1 - critRate/100) * totalPlayerDamageWithoutCrit) + ((critRate/100) * totalPlayerDamageWithCrit);
+        
         
 
-        let totalDamageRound = round(totalDamage,0);
-        let totalBossDamageRound = round(totalBossDamage,0);
-        let totalPlayerDamageRound = round(totalPlayerDamage,0);
+        let totalDamageRound = round(totalAverageDamage,0);
+        let totalBossDamageRound = round(totalAverageBossDamage,0);
+        let totalPlayerDamageRound = round(totalAveragePlayerDamage,0);
 
 
         if (atk === "" || atkIncrease === "" || dmgIncrease ===  "" || bossAtk === '' || playerAtk === '' || bossAtk === '' || dmgIncrease === '' || skillDmg === '' || skillHit === '' || critRate === '' || critAtk === '' || critDmg === '') {
