@@ -1,17 +1,15 @@
 import React, {Component} from 'react';
 import {Atk, AtkIncrease, DmgIncrease, BossAtk, PlayerAtk, SkillDmg, SkillHit, CritRate, CritAtk, CritDmg} from './Components/CalculatorItems';
 import Swal from 'sweetalert2';
-import {CalculateButton, ResetButton } from './Components/Buttons';
+import {CalculateButton, ResetButton, MoreStatsButton, } from './Components/Buttons';
+import {DamageFormula, MoreStats } from './Components/PopUps'
 import DamageChart from './Components/DamageChart';
-import DamageFormula from './Components/DamageFormula';
 import Navbar from './Components/Navbar';
-import MoreStats from './Components/MoreStats';
 import './App.css';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCalculator, faTimes, faArrowRight, faArrowDown } from '@fortawesome/free-solid-svg-icons'
+import { faCalculator, faTimes, faArrowRight, faCaretDown, faSave, faUndo} from '@fortawesome/free-solid-svg-icons'
 
-library.add(faCalculator, faTimes, faArrowRight, faArrowDown)
+library.add(faCalculator, faTimes, faArrowRight, faCaretDown, faSave, faUndo )
 
 
 
@@ -36,7 +34,9 @@ class App extends Component {
                         totalBossDmg: '',
                         totalPlayerDmg: '',
                         damageFormula: false,
-                        moreStats: false
+                        moreStats: false,
+                        saveDamageChart: false,
+                        saveDamage: '',
                         
                       }
     }
@@ -130,34 +130,21 @@ class App extends Component {
     render() {
         const show = (this.state.damageFormula) ? "show" : "" ;
         const hi = (this.state.moreStats) ? "show" : "" ;
-
         return (
             <div onKeyPress={this._handleKeyPress}>
                 <div className="nowrap">
                 <Navbar />
                 </div>
-            <div class="row">
-            <div class="col-md-12">
+           
 
                 <div className="bg-washed-yellow mt2">
                     
                 <div className="bg-light-yellow w-90 tc center rounded">
                 <div className="tc w-100 h-100 p-2">
-                        <button 
-                            className="btn btn-warning ba bw-3 b--black rounded ma1" 
-                            type="button" 
-                            onClick={this.toggleDamageFormula}
-                        >
-                        <FontAwesomeIcon icon="calculator" /> {" "}
-                        Damage Formula
-                        </button>
-                        <button 
-                            className="btn btn-warning ba bw-3 b--black rounded ma1" 
-                            type="button" 
-                            onClick={this.toggleMoreStats}
-                        >More Stats 
-                        </button>
-                        <div className={"collapse navbar-collapse " + show}>
+                    
+
+                        <MoreStatsButton toggleMoreStats={this.toggleMoreStats} toggleDamageFormula={this.toggleDamageFormula} />
+                    <div className={"collapse navbar-collapse " + show}>
                             <DamageFormula 
                                 atk={this.state.atk} 
                                 critRate={this.state.critRate} 
@@ -170,8 +157,8 @@ class App extends Component {
                                 skillDmg={this.state.skillDmg} 
                                 skillHit={this.state.skillHit}
                             />
-                        </div>
-                     </div>
+                    </div>
+                </div>
                     <div className="tc">
                         <DamageChart 
                             totalDmg={this.state.totalDmg} 
@@ -179,7 +166,7 @@ class App extends Component {
                             totalCritDmg={this.state.totalCritDmg}
                         />
                         <div className={"collapse navbar-collapse " + hi}>
-                            <MoreStats 
+                        <MoreStats 
                                 totalBossDmg={this.state.totalBossDmg}
                                 totalPlayerDmg={this.state.totalPlayerDmg}
                             />
@@ -211,14 +198,14 @@ class App extends Component {
                     {" "}
                     <div className="tc">
                         <ResetButton refreshPage={this.refreshPage}/>
+                        
                     </div>
+                    
                     
                 </form>
             </div>  
             </div> 
-        </div>  
-        </div>
-        </div>                  
+        </div>                 
         )    
     }
 }
