@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import List from './NotepadList';
 
 class MoreStats extends Component {
     render() {
@@ -7,10 +8,22 @@ class MoreStats extends Component {
             <div>
                 <div className="w-75 bg-warning center ba bw2 b--black pa2 ma1 shadow-5 rounded">
             
-            Average Total Boss Damage: {this.props.totalBossDmg}
-                    <br />
-            Average Total Player Damage: {this.props.totalPlayerDmg}
-                    <br />
+            Average Total Boss Damage: <b>{this.props.totalBossDmg}</b>
+            <br />
+            Average Total Player Damage: <b>{this.props.totalPlayerDmg}</b>
+            <br />
+            Average Non-Crit Damage Per Line vs Gray Mobs: <b>{this.props.totalNonCritDmgGray}</b>
+            <br />
+            Average Crit Damage Per Line vs Gray Mobs: <b>{this.props.totalCritDmgGray}</b>
+            <br />
+            Average Total Damage vs Gray Mobs: <b>{this.props.totalDmgGray}</b>
+            <br />
+            Average Non-Crit Damage Per Line vs Red Mobs: <b>{this.props.totalNonCritDmgRed}</b>
+            <br />
+            Average Crit Damage Per Line vs Red Mobs: <b>{this.props.totalCritDmgRed}</b>
+            <br />
+            Average Total Damage vs Red Mobs: <b>{this.props.totalDmgRed}</b>
+            
         </div>
             </div>
         )
@@ -35,4 +48,73 @@ class DamageFormula extends Component {
     }
 }
 
-export {MoreStats, DamageFormula,}
+class Notepad extends Component {
+    constructor(props) {
+        super()
+        this.state = {
+            name: '',
+            damage: '',
+            items: []
+        };
+    }
+
+    onChangeName = (event) => {
+        this.setState({name: event.target.value})
+    }
+
+    onChangeDamage = (event) => {
+        this.setState({damage: event.target.value})
+    }
+
+    onSubmit = (event) => {
+        event.preventDefault()
+        this.setState({
+            name: '',
+            damage: '',
+            items: [...this.state.items, this.state.name, this.state.damage],
+        });
+    }
+
+    clearForm = (event) => {
+        event.preventDefault()
+        this.setState({
+                items: [],
+        })
+    }
+    render() {
+        return (
+            <div className="w-50 bg-warning center ba bw2 b--black pa2 ma1 shadow-5 rounded">
+                <h3>Notepad</h3>
+                <hr />
+                
+                <form className="black-80">
+                <div className="row">
+                <div className="column tc center">
+                    <label for="Skill Name" className="f6 b db mb2">Skill Name + Damage</label>
+                  
+                    <input 
+                        value={this.state.name}
+                        onChange={this.onChangeName}
+                        id="Skill Name"
+                        type="text"
+                        className="input-reset ba b--black-20 pa2 mb2 db"
+                    />
+                </div>
+                </div>
+                    
+                    <button onClick={this.onSubmit}
+                    className="b ph3 pv2 ba b--black grow pointer f6">Add</button> {" "}
+                    <button onClick={this.clearForm}
+                    className="b ph3 pv2 ba b--black grow pointer f6">Clear</button>
+
+                </form>
+                <hr />
+                <List items={this.state.items}
+                      
+                 />
+            </div>
+        )
+    }
+}
+
+export {MoreStats, DamageFormula, Notepad}

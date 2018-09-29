@@ -17,21 +17,6 @@ class CalculateButton extends Component {
         }
 }
 
-class ResetButton extends Component {
-    render() {
-        return (
-            <div>
-                <button className="btn btn-primary m-1 w-40" 
-                                type="button" 
-                                onClick={this.props.refreshPage}>
-                        <FontAwesomeIcon icon="undo" /> {" "}
-                        Reset
-                        </button>
-            </div>
-        )
-    }
-}
-
 class SaveButton extends Component {
     render() {
         return (
@@ -57,7 +42,7 @@ class MoreStatsButton extends Component {
                     type="button" 
                     onClick={this.props.toggleDamageFormula}
                 >
-                <FontAwesomeIcon icon="caret-down" /> {" "}
+                <FontAwesomeIcon icon="square-root-alt" /> {" "}
                 Damage Formula
                 </button>
                 <button 
@@ -68,10 +53,18 @@ class MoreStatsButton extends Component {
                 <FontAwesomeIcon icon="caret-down" /> {" "}
                 More Stats 
             </button>
+            <button 
+                className="btn btn-warning ba bw-3 b--black rounded ma1"
+                type="button"
+                onClick={this.props.toggleNotepad}
+                >
+                <FontAwesomeIcon icon="edit" /> {" "}
+                Notepad
+                </button>
             </div>
         )
     }
 }
     
 
-export { CalculateButton, ResetButton, SaveButton, MoreStatsButton, } 
+export { CalculateButton, SaveButton, MoreStatsButton, } 

@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
 import {Atk, AtkIncrease, DmgIncrease, BossAtk, PlayerAtk, SkillDmg, SkillHit, CritRate, CritAtk, CritDmg} from './Components/CalculatorItems';
 import Swal from 'sweetalert2';
-import {CalculateButton, ResetButton, MoreStatsButton, } from './Components/Buttons';
-import {DamageFormula, MoreStats } from './Components/PopUps'
+import {CalculateButton, MoreStatsButton, } from './Components/Buttons';
+import {DamageFormula, MoreStats, Notepad } from './Components/PopUps'
 import DamageChart from './Components/DamageChart';
 import Navbar from './Components/Navbar';
 import './App.css';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCalculator, faTimes, faArrowRight, faCaretDown, faSave, faUndo} from '@fortawesome/free-solid-svg-icons'
+import { faCalculator, faTimes, faArrowRight, faCaretDown, faSave, faEdit, faSquareRootAlt} from '@fortawesome/free-solid-svg-icons'
 
-library.add(faCalculator, faTimes, faArrowRight, faCaretDown, faSave, faUndo )
+library.add(faCalculator, faTimes, faArrowRight, faCaretDown, faSave, faEdit, faSquareRootAlt )
 
 
 
@@ -33,10 +33,15 @@ class App extends Component {
                         totalNonCritDmg: '',
                         totalBossDmg: '',
                         totalPlayerDmg: '',
+                        totalCritDmgRed: '',
+                        totalNonCritDmgRed: '',
+                        totalCritDmgGray: '',
+                        totalNonCritDmgGray: '',
+                        totalDmgGray: '',
+                        totalDmgRed: '',
                         damageFormula: false,
                         moreStats: false,
-                        saveDamageChart: false,
-                        saveDamage: '',
+                        notePad: false,
                         
                       }
     }
@@ -48,12 +53,11 @@ class App extends Component {
             var multiplier = Math.pow(10, places);
             return Math.round(num * multiplier) / multiplier;
         }
+
         let atk = this.state.atk;
         let atkIncrease = this.state.atkIncrease;
         let playerAtk = this.state.playerAtk;
         let bossAtk = this.state.bossAtk;
-
-
         let dmgIncrease = this.state.dmgIncrease;
         let skillDmg = this.state.skillDmg;
         let skillHit = this.state.skillHit;
@@ -62,29 +66,41 @@ class App extends Component {
         let critDmg = this.state.critDmg;
 
         let totalDamageWithoutCrit = (atk) * (1+atkIncrease/100) * (1+dmgIncrease/100) * (skillDmg/100) * (skillHit);
-        let totalDamageWithCrit = (Number(atk) + Number(critAtk)) * (1+atkIncrease/100) * (1+(Number(dmgIncrease)+Number(critDmg))/100) * (skillDmg/100) * (skillHit);
+        let totalDamageWithCrit = (Number(atk) + Number(critAtk)) * (1+atkIncrease/100) * (1+(25+Number(dmgIncrease)+Number(critDmg))/100) * (skillDmg/100) * (skillHit);
+
         let totalCritDamagePerLine = totalDamageWithCrit / skillHit;
         let totalNonCritDamagePerLine = totalDamageWithoutCrit / skillHit;
 
         let totalAverageDamage = ((1 - critRate/100) * totalDamageWithoutCrit) + ((critRate/100) * totalDamageWithCrit);
 
         let totalBossDamageWithoutCrit = (atk) * (1+atkIncrease/100) * (1+bossAtk/100) * (1+dmgIncrease/100) * (skillDmg/100) * (skillHit);
-        let totalBossDamageWithCrit = ((Number(atk) + Number(critAtk)) * (1+atkIncrease/100) * (1+bossAtk/100) * (1+(Number(dmgIncrease)+Number(critDmg))/100) * (skillDmg/100) * (skillHit));
+        let totalBossDamageWithCrit = ((Number(atk) + Number(critAtk)) * (1+atkIncrease/100) * (1+bossAtk/100) * (1+(25+Number(dmgIncrease)+Number(critDmg))/100) * (skillDmg/100) * (skillHit));
 
         let totalAverageBossDamage = ((1 - critRate/100) * totalBossDamageWithoutCrit) + ((critRate/100) * totalBossDamageWithCrit);
 
         let totalPlayerDamageWithoutCrit = (atk) * (1+atkIncrease/100) * (1+playerAtk/100) * (1+dmgIncrease/100) * (skillDmg/100) * (skillHit);
-        let totalPlayerDamageWithCrit = ((Number(atk) + Number(critAtk)) * (1+atkIncrease/100) * (1+playerAtk/100) * (1+(Number(dmgIncrease)+Number(critDmg))/100) * (skillDmg/100) * (skillHit));
+        let totalPlayerDamageWithCrit = ((Number(atk) + Number(critAtk)) * (1+atkIncrease/100) * (1+playerAtk/100) * (1+(25+Number(dmgIncrease)+Number(critDmg))/100) * (skillDmg/100) * (skillHit));
 
         let totalAveragePlayerDamage = ((1 - critRate/100) * totalPlayerDamageWithoutCrit) + ((critRate/100) * totalPlayerDamageWithCrit);
-        
-        
+
+        let totalNonCritDamagePerLineRed = totalNonCritDamagePerLine - (totalNonCritDamagePerLine*(.05));
+        let totalCritDamagePerLineRed = totalCritDamagePerLine - (totalCritDamagePerLine*(.05));
+        let totalAverageDamageRed = (((1 - critRate/100) * totalNonCritDamagePerLineRed) + ((critRate/100) * totalCritDamagePerLineRed)) * skillHit
+        let totalNonCritDamagePerLineGray = totalNonCritDamagePerLine + (totalNonCritDamagePerLine*(.05));
+        let totalCritDamagePerLineGray = totalCritDamagePerLine + (totalCritDamagePerLine*(.05));
+        let totalAverageDamageGray = (((1 - critRate/100) * totalNonCritDamagePerLineGray) + ((critRate/100) * totalCritDamagePerLineGray)) * skillHit
 
         let totalDamageRound = round(totalAverageDamage,0);
         let totalBossDamageRound = round(totalAverageBossDamage,0);
         let totalPlayerDamageRound = round(totalAveragePlayerDamage,0);
         let totalCritDamageRound = round(totalCritDamagePerLine,0);
         let totalNonCritDamageRound = round(totalNonCritDamagePerLine,0);
+        let totalNonCritRedRound = round(totalNonCritDamagePerLineRed,0);
+        let totalDamageRedRound = round(totalAverageDamageRed,0);
+        let totalCritRedRound = round(totalCritDamagePerLineRed,0);
+        let totalNonCritGrayRound = round(totalNonCritDamagePerLineGray,0);
+        let totalCritGrayRound = round(totalCritDamagePerLineGray,0);
+        let totalDamageGrayRound = round(totalAverageDamageGray,0);
 
 
         if (atk === "" || atkIncrease === "" || dmgIncrease ===  "" || bossAtk === '' || playerAtk === '' || bossAtk === '' || dmgIncrease === '' || skillDmg === '' || skillHit === '' || critRate === '' || critAtk === '' || critDmg === '') {
@@ -100,6 +116,12 @@ class App extends Component {
                         totalPlayerDmg: totalPlayerDamageRound,
                         totalCritDmg: totalCritDamageRound,
                         totalNonCritDmg: totalNonCritDamageRound,
+                        totalNonCritDmgRed: totalNonCritRedRound,
+                        totalCritDmgRed: totalCritRedRound,
+                        totalDmgRed: totalDamageRedRound,
+                        totalDmgGray: totalDamageGrayRound,
+                        totalNonCritDmgGray: totalNonCritGrayRound,
+                        totalCritDmgGray: totalCritGrayRound
         
         })
     
@@ -123,6 +145,37 @@ class App extends Component {
         this.setState({moreStats: !this.state.moreStats})
     }
 
+    toggleNotepad = () => {
+        this.setState({notePad: !this.state.notePad})
+
+    }
+
+    resetButton = () => {
+        this.setState({
+            atk: '',
+            atkIncrease: '',
+            dmgIncrease: '',
+            bossAtk: '',
+            playerAtk: '',
+            skillDmg: '',
+            skillHit: '',
+            critRate: '',
+            critAtk: '',
+            critDmg: '',
+            totalDmg: '',
+            totalCritDmg: '',
+            totalNonCritDmg: '',
+            totalBossDmg: '',
+            totalPlayerDmg: '',
+            totalCritDmgRed: '',
+            totalNonCritDmgRed: '',
+            totalCritDmgGray: '',
+            totalNonCritDmgGray: '',
+            totalDmgGray: '',
+            totalDmgRed: '',
+    })
+    }
+
     
 
     
@@ -130,8 +183,9 @@ class App extends Component {
     render() {
         const show = (this.state.damageFormula) ? "show" : "" ;
         const hi = (this.state.moreStats) ? "show" : "" ;
+        const hey = (this.state.notePad) ? "show" : "";
         return (
-            <div onKeyPress={this._handleKeyPress}>
+            <div>
                 <div className="nowrap">
                 <Navbar />
                 </div>
@@ -141,9 +195,8 @@ class App extends Component {
                     
                 <div className="bg-light-yellow w-90 tc center rounded">
                 <div className="tc w-100 h-100 p-2">
-                    
 
-                        <MoreStatsButton toggleMoreStats={this.toggleMoreStats} toggleDamageFormula={this.toggleDamageFormula} />
+                        <MoreStatsButton toggleMoreStats={this.toggleMoreStats} toggleDamageFormula={this.toggleDamageFormula} toggleNotepad={this.toggleNotepad}/>
                     <div className={"collapse navbar-collapse " + show}>
                             <DamageFormula 
                                 atk={this.state.atk} 
@@ -169,11 +222,20 @@ class App extends Component {
                         <MoreStats 
                                 totalBossDmg={this.state.totalBossDmg}
                                 totalPlayerDmg={this.state.totalPlayerDmg}
+                                totalNonCritDmgRed={this.state.totalNonCritDmgRed}
+                                totalCritDmgRed={this.state.totalCritDmgRed}
+                                totalNonCritDmgGray={this.state.totalNonCritDmgGray}
+                                totalCritDmgGray={this.state.totalCritDmgGray}
+                                totalDmgGray={this.state.totalDmgGray}
+                                totalDmgRed={this.state.totalDmgRed}
                             />
                         </div>
                     </div>
+                    <div className={"collapse navbar-collapse " + hey}>
+                    <Notepad />
+                    </div>
                     <hr />
-                <form className="form-group m-2 p-2">
+                <form className="form-group m-2 p-2" onKeyPress={this._handleKeyPress}>
                     <div className="row justify-content-center">
                         <div className="col col-lg-3 text-center">
                             <Atk onValueChange={atk => this.setState({ atk })}/>
@@ -195,13 +257,6 @@ class App extends Component {
                     <div className="tc">
                         <CalculateButton damageCalc={this.damageCalc}/>
                     </div>
-                    {" "}
-                    <div className="tc">
-                        <ResetButton refreshPage={this.refreshPage}/>
-                        
-                    </div>
-                    
-                    
                 </form>
             </div>  
             </div> 
