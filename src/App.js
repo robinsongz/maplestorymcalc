@@ -33,12 +33,6 @@ class App extends Component {
                         totalNonCritDmg: '',
                         totalBossDmg: '',
                         totalPlayerDmg: '',
-                        totalCritDmgRed: '',
-                        totalNonCritDmgRed: '',
-                        totalCritDmgGray: '',
-                        totalNonCritDmgGray: '',
-                        totalDmgGray: '',
-                        totalDmgRed: '',
                         damageFormula: false,
                         moreStats: false,
                         notePad: false,
@@ -83,24 +77,13 @@ class App extends Component {
 
         let totalAveragePlayerDamage = ((1 - critRate/100) * totalPlayerDamageWithoutCrit) + ((critRate/100) * totalPlayerDamageWithCrit);
 
-        let totalNonCritDamagePerLineRed = totalNonCritDamagePerLine - (totalNonCritDamagePerLine*(.05));
-        let totalCritDamagePerLineRed = totalCritDamagePerLine - (totalCritDamagePerLine*(.05));
-        let totalAverageDamageRed = (((1 - critRate/100) * totalNonCritDamagePerLineRed) + ((critRate/100) * totalCritDamagePerLineRed)) * skillHit
-        let totalNonCritDamagePerLineGray = totalNonCritDamagePerLine + (totalNonCritDamagePerLine*(.05));
-        let totalCritDamagePerLineGray = totalCritDamagePerLine + (totalCritDamagePerLine*(.05));
-        let totalAverageDamageGray = (((1 - critRate/100) * totalNonCritDamagePerLineGray) + ((critRate/100) * totalCritDamagePerLineGray)) * skillHit
+        
 
         let totalDamageRound = round(totalAverageDamage,0);
         let totalBossDamageRound = round(totalAverageBossDamage,0);
         let totalPlayerDamageRound = round(totalAveragePlayerDamage,0);
         let totalCritDamageRound = round(totalCritDamagePerLine,0);
         let totalNonCritDamageRound = round(totalNonCritDamagePerLine,0);
-        let totalNonCritRedRound = round(totalNonCritDamagePerLineRed,0);
-        let totalDamageRedRound = round(totalAverageDamageRed,0);
-        let totalCritRedRound = round(totalCritDamagePerLineRed,0);
-        let totalNonCritGrayRound = round(totalNonCritDamagePerLineGray,0);
-        let totalCritGrayRound = round(totalCritDamagePerLineGray,0);
-        let totalDamageGrayRound = round(totalAverageDamageGray,0);
 
 
         if (atk === "" || atkIncrease === "" || dmgIncrease ===  "" || bossAtk === '' || playerAtk === '' || bossAtk === '' || dmgIncrease === '' || skillDmg === '' || skillHit === '' || critRate === '' || critAtk === '' || critDmg === '') {
@@ -116,12 +99,6 @@ class App extends Component {
                         totalPlayerDmg: totalPlayerDamageRound,
                         totalCritDmg: totalCritDamageRound,
                         totalNonCritDmg: totalNonCritDamageRound,
-                        totalNonCritDmgRed: totalNonCritRedRound,
-                        totalCritDmgRed: totalCritRedRound,
-                        totalDmgRed: totalDamageRedRound,
-                        totalDmgGray: totalDamageGrayRound,
-                        totalNonCritDmgGray: totalNonCritGrayRound,
-                        totalCritDmgGray: totalCritGrayRound
         
         })
     
@@ -167,12 +144,6 @@ class App extends Component {
             totalNonCritDmg: '',
             totalBossDmg: '',
             totalPlayerDmg: '',
-            totalCritDmgRed: '',
-            totalNonCritDmgRed: '',
-            totalCritDmgGray: '',
-            totalNonCritDmgGray: '',
-            totalDmgGray: '',
-            totalDmgRed: '',
     })
     }
 

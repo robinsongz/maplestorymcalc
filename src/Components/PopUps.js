@@ -11,19 +11,6 @@ class MoreStats extends Component {
             Average Total Boss Damage: <b>{this.props.totalBossDmg}</b>
             <br />
             Average Total Player Damage: <b>{this.props.totalPlayerDmg}</b>
-            <br />
-            Average Non-Crit Damage Per Line vs Gray Mobs: <b>{this.props.totalNonCritDmgGray}</b>
-            <br />
-            Average Crit Damage Per Line vs Gray Mobs: <b>{this.props.totalCritDmgGray}</b>
-            <br />
-            Average Total Damage vs Gray Mobs: <b>{this.props.totalDmgGray}</b>
-            <br />
-            Average Non-Crit Damage Per Line vs Red Mobs: <b>{this.props.totalNonCritDmgRed}</b>
-            <br />
-            Average Crit Damage Per Line vs Red Mobs: <b>{this.props.totalCritDmgRed}</b>
-            <br />
-            Average Total Damage vs Red Mobs: <b>{this.props.totalDmgRed}</b>
-            
         </div>
             </div>
         )
