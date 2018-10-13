@@ -67,8 +67,8 @@ class App extends Component {
 
         let totalAverageDamage = ((1 - critRate/100) * totalDamageWithoutCrit) + ((critRate/100) * totalDamageWithCrit);
 
-        let totalBossDamageWithoutCrit = (atk) * (1+atkIncrease/100) * (1+bossAtk/100) * (1+dmgIncrease/100) * (skillDmg/100) * (skillHit);
-        let totalBossDamageWithCrit = ((Number(atk) + Number(critAtk)) * (1+atkIncrease/100) * (1+bossAtk/100) * (1+(25+Number(dmgIncrease)+Number(critDmg))/100) * (skillDmg/100) * (skillHit));
+        let totalBossDamageWithoutCrit = (atk) * (1+atkIncrease/100) * (1+(2.5*(bossAtk/100))) * (1+dmgIncrease/100) * (skillDmg/100) * (skillHit);
+        let totalBossDamageWithCrit = ((Number(atk) + Number(critAtk)) * (1+atkIncrease/100) * (1+(2.5*(bossAtk/100))) * (1+(25+Number(dmgIncrease)+Number(critDmg))/100) * (skillDmg/100) * (skillHit));
 
         let totalAverageBossDamage = ((1 - critRate/100) * totalBossDamageWithoutCrit) + ((critRate/100) * totalBossDamageWithCrit);
 
