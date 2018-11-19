@@ -99,7 +99,8 @@ class BossAtk extends Component {
                             this.setState({ stats });
                             this.props.onValueChange(stats);
                         } 
-                        }/>
+                        }
+                        type="number"/>
                 <br/><br/>
             </div>
         )
